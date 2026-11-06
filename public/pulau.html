@@ -1,0 +1,144 @@
+<!doctype html><html lang="ms"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Misi Rumusan · Pulau Aksara</title><style>
+*{box-sizing:border-box}body{margin:0;background:#e8efe6;color:#173f43;font:17px/1.55 system-ui,sans-serif}main{width:min(100% - 28px,860px);margin:24px auto 60px}header{position:relative;overflow:hidden;background:#0e4047;color:#fff9de;border-radius:22px;padding:32px;isolation:isolate}header:after{content:"";position:absolute;width:230px;height:230px;border:26px double #68bea77a;outline:25px solid #68bea72a;border-radius:50%;right:-70px;top:-75px;z-index:-1}h1,h2,h3,p{margin:0 0 12px}h1,h2{font-family:Georgia,serif;line-height:1.1}h1{font-size:clamp(38px,8vw,72px);letter-spacing:-.05em}h2{font-size:32px}small,.ey{font-weight:750;letter-spacing:.09em;font-size:12px;text-transform:uppercase}.box,details{background:#fffdf4;border:1px solid #c7d7ca;border-radius:16px;padding:clamp(16px,4vw,28px);margin:14px 0}summary{cursor:pointer;font-weight:bold}details p{margin:12px 0 0}label{font-weight:700;display:block;margin-top:12px}input,textarea{width:100%;padding:12px;border:1px solid #819c92;background:white;border-radius:8px;font:inherit;color:inherit}textarea{min-height:115px}button{font:inherit;font-weight:680;cursor:pointer;border:1px solid #22635c;border-radius:9px;background:#175952;color:white;padding:10px 16px;margin:6px 5px 0 0}button:disabled{opacity:.65;cursor:default}.opt,.soft{background:#fffdf4;color:#194849}.opt{display:block;width:100%;text-align:left}.sel{background:#d2ead9;border:2px solid #175952}.bar{display:flex;justify-content:space-between;gap:10px;align-items:center}.map{display:flex;gap:5px;margin:14px 0}.map button{padding:6px 0;flex:1;margin:0;background:#d6e4dc;color:#163b38}.map .here{outline:3px solid #bb6625}.map .done{background:#175952;color:white}.note{color:#704415;font-weight:650}.flash{background:#ecf5db;border-radius:8px;padding:10px;margin-top:10px}.flash:empty{display:none}[hidden]{display:none!important}button:focus-visible,summary:focus-visible{outline:3px solid #d2782d}#progressbar{position:sticky;top:0;background:#e8efe6;padding:8px 2px;z-index:2}#receipt{border-top:6px solid #dfa253}
+body{background:#f7efdc;background-image:radial-gradient(#cdc1a6 1px,transparent 1px);background-size:20px 20px;color:#21394a}header{padding:36px 30px 66px;background:#20354e;border:3px solid #21374a;box-shadow:0 5px 0 #c5b799}header:after{display:none}.coast{position:absolute;inset:0;width:100%;height:100%;z-index:-1}.beam{animation:glow 4s ease-in-out infinite alternate}@keyframes glow{to{opacity:.52}}h1,h2{font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;font-weight:900}header .ey{color:#ffdd89}header b{color:#f9e8bf}.box,details{border:2px solid #314756;box-shadow:3px 4px 0 #c7bfa6}.box{background:#fffdf6}button{border:2px solid #213e48;border-radius:14px;box-shadow:0 3px 0 #203b49}button:active{transform:translateY(2px);box-shadow:none}#launch,#next{background:#ffd264;color:#243746}#progressbar{background:#fbefd3;border-radius:12px;padding:8px 12px}.map{background:#cce5d9;border:2px dashed #6d9a8e;border-radius:24px;padding:12px;gap:7px}.map button{border-radius:50%;max-width:54px;aspect-ratio:1;line-height:1;background:#fff7d7}.map{justify-content:space-around}.map .done{background:#ffd366;color:#2b3e40}.map .here{outline:3px solid #cf6354;outline-offset:2px}.opt{padding:10px 14px;border-color:#99aca1;box-shadow:none}.opt:hover:enabled,.tile:hover{background:#e4f2e5}.opt.sel{color:#173d40;opacity:1}#build{border-top:2px dashed #c2cdb8;margin-top:17px;padding-top:14px}.tile{background:#e0f1eb;color:#173c44;margin-bottom:6px}.tile.used{opacity:.45}.phrase{min-height:44px;padding:10px 12px;border-radius:10px;background:#fff0bf}.ey{color:#496759}#badge{color:#ffd882}#source{padding:13px 20px}#feedback{font-size:15px}@media(max-width:600px){header{padding:22px 15px 80px}.coast{object-fit:cover}.map{padding:8px;gap:4px}.map button{min-width:0}main{margin-top:12px}}@media(prefers-reduced-motion:reduce){.beam{animation:none}}
+/* Shared controls for touch, mouse and keyboard. */
+main{width:calc(100% - 32px);max-width:1040px}
+button,summary{touch-action:manipulation}
+button,input{min-height:46px}
+summary{min-height:46px;align-content:center}
+button:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid #8d3a19;outline-offset:3px}
+#play>*{min-width:0}
+#source,#review,article{overflow-wrap:anywhere}
+#tiles{display:grid;gap:8px}
+.tile{width:100%;margin:0;text-align:left;padding:11px 14px}
+article{scroll-margin-top:64px}
+#entry{display:grid;gap:12px}
+#entry label,#launch{margin:0}
+#entry input{display:block;margin-top:5px}
+#map{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));justify-items:center}
+#map button{width:100%;min-height:46px;min-width:0;max-width:50px;aspect-ratio:auto}
+@media(min-width:900px){
+ #entry{grid-template-columns:2fr 1fr auto;align-items:end}
+ #play{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);column-gap:20px;align-items:start}
+ #progressbar,#map{grid-column:1/-1}
+ #source{grid-column:1;grid-row:3;margin:0;position:sticky;top:64px;max-height:calc(100vh - 85px);overflow:auto}
+ #play article{grid-column:2;grid-row:3;margin:0}
+ #review{grid-column:2}
+}
+@media(max-width:599px){
+ main{width:calc(100% - 24px);margin-top:12px}
+ #map{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;border-radius:16px}
+ #map button{max-width:none;border-radius:10px}
+ #launch{width:100%}
+ #play article .bar{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.65fr);gap:8px;margin-top:14px}
+ #play article .bar button{margin:0;padding:9px 6px;font-size:16px}
+ #source{padding:4px 12px}
+ header{background:#172746}
+ header h1,header .ey,header b{position:relative;text-shadow:0 1px 5px #172746}
+}
+#ranks{padding:0;counter-reset:rank}#ranks li{counter-increment:rank;display:flex;align-items:center;gap:12px;border-bottom:1px solid #d8dece;padding:9px 0}#ranks li:before{content:counter(rank);font-weight:800;background:#ffe29b;border-radius:50%;width:32px;text-align:center}#ranks strong{margin-left:auto}footer{text-align:right}footer a{color:#174a4e;font-weight:bold}</style></head><body><main>
+<header><svg class="coast" viewBox="0 0 900 240" preserveAspectRatio="xMaxYMax slice" aria-hidden="true"><defs><linearGradient id="sky"><stop stop-color="#172746"/><stop offset="1" stop-color="#48507f"/></linearGradient><pattern id="stars" width="103" height="61" patternUnits="userSpaceOnUse"><circle cx="23" cy="12" r="1.8" fill="#ffe6a1"/><circle cx="80" cy="35" r="1" fill="#fff"/></pattern></defs><path fill="url(#sky)" d="M0 0h900v240H0z"/><path fill="url(#stars)" d="M0 0h900v170H0z"/><circle cx="825" cy="50" r="19" fill="#ffcc89"/><path fill="#456679" d="m0 166 83-30 90 12 75-22 103 32 125-17 89 7 90-26 88 39 91-23 66 20v82H0z"/><path fill="#278783" d="M0 165q130-21 285 3t340-4 275 4v72H0z"/><path fill="#183e53" d="m560 206 48-19 66-12 45-29 57 5 34 27 65 16 25 18z"/><path fill="#498776" d="m608 187 62-25 42-24 52 2 30 23 16 15-60-10-65 10z"/><path fill="#fff0c9" d="m714 145 8-75h22l9 75z"/><path fill="#e16952" d="m718 110 2-18 27 6 2 18z"/><path fill="#ffce65" d="M722 52h22v18h-22z"/><path fill="#253852" d="m716 51 17-13 17 13zM717 69h32v5h-32z"/><path class="beam" fill="#ffe4a2" opacity=".25" d="M723 55 435 9v91l288-36z"/><g fill="none" stroke="#a8e2c5" stroke-linecap="round" opacity=".65"><path d="M40 201h89m32 12h41m167-21h85m30 28h64m241 8h22"/></g><g transform="translate(493 159)"><path fill="#ffdc8d" d="m1-32-23 29H1z"/><path fill="#f39c74" d="m5-24 13 21H5z"/><path fill="#203d55" d="M-26 0h50l-9 8h-31z"/></g></svg><div class="ey">Akademi Bahasa · Tingkatan 2</div><h1>Misi Rumusan</h1><b>Ekspedisi Pulau Aksara</b></header><div class="box" hidden id="practiceBanner"><strong>Mod latihan cikgu</strong> · Markah percubaan hanya dipaparkan pada peranti ini.</div>
+<section class="box" id="lobby"><h2>Nyalakan Rumah Api Aksara</h2><p>Ribut memadamkan lapan pelita di pulau ini. Jawab teka bahasa, kemudian ketik kad frasa mengikut urutan untuk menyalakan satu pelita. Kumpulkan lapan pelita untuk membina rumusan lengkap. Setiap teka bahasa yang betul membawa 100 XP.</p><p>Main mengikut kelajuan sendiri. Hantar jawapan apabila sudah bersedia.</p><form id="entry"><label>Nama penuh<input id="student" maxlength="80" required></label><label>Kelas<input id="group" placeholder="Contoh: 2 Kreatif" maxlength="40" required></label><button id="launch">Mulakan ekspedisi →</button></form></section>
+<section id="play" hidden><div class="bar" id="progressbar"><b id="progress"></b></div><nav class="map" id="map" aria-label="Peta stesen"></nav>
+<details id="source"><summary>📜 Petikan misi · Kantin Tanpa Baki</summary>
+<p>Pada waktu rehat, pengawas melihat banyak nasi dan lauk masih berbaki di dalam tong sampah. Kelab Alam Sekitar pun melancarkan kempen Kantin Tanpa Baki. Sebelum turun ke kantin, murid menyemak menu dan merancang makanan yang hendak dibeli. Ada yang membawa senarai ringkas supaya mereka membeli makanan yang diperlukan sahaja.</p>
+<p>Di kaunter nasi, murid boleh meminta hidangan mengikut kemampuan mereka untuk menghabiskannya. Peniaga menyediakan senduk kecil dan besar. Di meja hujung pula, murid boleh berkongsi makanan berbungkus yang masih elok dan belum dibuka dengan rakan yang memerlukannya.</p>
+<p>Setiap hari, pengawas menimbang dan mencatat jumlah sisa makanan supaya warga sekolah dapat memantau hasil kempen. Peniaga menggunakan rekod jualan untuk menganggarkan jumlah hidangan yang perlu dimasak pada keesokan harinya. Sementara itu, ahli kelab menghasilkan poster untuk menyedarkan warga sekolah tentang pembaziran makanan. Poster berwarna jingga itu dipamerkan di pintu kantin.</p></details>
+<article class="box" id="activity"><div class="ey" id="island"></div><h2 id="stage" tabindex="-1"></h2><h3 id="question"></h3><div id="opts"></div><div class="flash" role="status" id="feedback"></div><div id="build" hidden><h3>Susun serpihan ayat</h3><p>Ketik ketiga-tiga kad mengikut urutan ayat.</p><div id="tiles"></div><p class="phrase" id="phrase" aria-live="polite"></p><button class="soft" id="undo">↶ Susun semula</button><p id="hint" role="status"></p></div><div class="bar"><button class="soft" id="back">← Kembali</button><button id="next">Teruskan →</button></div></article>
+<details id="review"><summary>Baca rumusan saya</summary><div id="preview"></div></details></section>
+<section id="receipt" class="box" hidden><h2 id="result"></h2><p id="msg"></p><details id="endReview" hidden><summary>Lihat rumusan ekspedisi</summary><div id="endText"></div></details><button hidden id="retry">Cuba hantar semula</button><button hidden class="soft" id="reset">Tamatkan sesi pada peranti ini</button></section><p class="note" role="status" id="notice"></p><section class="box" id="ranking"><div class="ey">Dewan pelita</div><h2>10 penjelajah teratas</h2><p>Lengkapkan lapan pelita untuk masuk carta. Markah terbaik bagi nama dan kelas yang sama dikira. Jika seri, percubaan lengkap yang dihantar dahulu didahulukan.</p><ol id="ranks"></ol><p id="rankMsg" role="status"></p><button class="soft" id="refreshRank">Muat semula ranking</button></section><footer><a href="/guru.html">Ruang guru ↗</a></footer>
+<script>
+const stations=[
+['Jeti Peta','Pendahuluan','Apakah fokus petikan?',['Kesan menaikkan harga makanan','Langkah mengurangkan pembaziran makanan di sekolah','Punca kantin menjadi sesak'],1,'Cari tindakan yang menghubungkan semua perenggan.','Tulis satu ayat pendahuluan yang menyatakan fokus petikan.'],
+['Teluk Menu','Isi 1','Maklumat manakah ialah isi utama?',['Murid turun ke kantin.','Senarai itu ringkas.','Murid merancang pembelian makanan.'],2,'Senarai ialah contoh cara murid merancang pembelian.','Ringkaskan tindakan murid sebelum ke kantin.'],
+['Tanjung Sukat','Isi 2','Pilih ayat yang mengekalkan maksud asal.',['Murid mengambil makanan mengikut selera dan kemampuan untuk menghabiskannya.','Semua murid wajib mengambil satu senduk nasi.','Murid mesti membeli nasi selepas rehat.'],0,'Saiz hidangan boleh berbeza mengikut keperluan murid.','Nyatakan cara murid mengelakkan lebihan makanan di atas pinggan.'],
+['Pulau Kongsi','Isi 3','Apakah butiran penting tentang makanan yang dikongsi?',['Warnanya menarik.','Harganya rendah.','Bungkusannya belum dibuka dan makanan masih elok.'],2,'Kekalkan syarat perkongsian apabila memendekkan ayat.','Tulis satu perenggan tentang usaha berkongsi makanan.'],
+['Menara Timbang','Isi 4','Apakah tujuan pengawas merekodkan berat sisa?',['Menetapkan harga lauk','Memantau hasil kempen','Memilih kelas terbaik'],1,'Perubahan jumlah sisa menunjukkan hasil usaha warga sekolah.','Terangkan usaha pengawas dalam satu ayat.'],
+['Dapur Peninjau','Isi 5','Pilih padanan pelaku dan tindakan yang tepat.',['Peniaga menganggarkan keperluan masakan berdasarkan jualan.','Pengawas menentukan jenis lauk.','Ahli kelab memasak semua hidangan.'],0,'Bezakan rekod jualan peniaga daripada rekod sisa pengawas.','Ringkaskan cara peniaga merancang penyediaan makanan.'],
+['Galeri Isyarat','Isi 6','Butiran manakah boleh digugurkan tanpa kehilangan isi utama?',['Tujuan menyedarkan warga sekolah','Penggunaan poster dalam kempen','Warna jingga pada poster'],2,'Warna ialah perincian. Tindakan dan tujuannya membawa isi.','Nyatakan usaha ahli kelab untuk menyampaikan mesej kempen.'],
+['Rumah Api','Penutup','Pilih penutup yang mengandungi cadangan dan harapan.',['Kantin dibuka setiap pagi.','Semua warga sekolah hendaklah bekerjasama agar pembaziran makanan dapat dikurangkan.','Poster itu dipamerkan di kantin.'],1,'Satukan pihak yang terlibat, cadangan dan harapan dalam satu ayat.','Simpulkan rumusan dengan cadangan dan harapan yang berkaitan dengan kempen.']];
+const parts=[
+ ['Petikan membincangkan','langkah-langkah mengurangkan','pembaziran makanan di sekolah.'],
+ ['Murid merancang pembelian','supaya mereka membeli','makanan yang diperlukan sahaja.'],
+ ['Selain itu, murid mengambil','hidangan mengikut kemampuan','mereka untuk menghabiskannya.'],
+ ['Murid juga boleh berkongsi','makanan berbungkus yang masih elok dan belum dibuka','dengan rakan yang memerlukannya.'],
+ ['Seterusnya, pengawas merekodkan','berat sisa makanan','untuk memantau hasil kempen.'],
+ ['Peniaga pula merujuk rekod jualan','untuk menganggarkan jumlah hidangan','yang perlu dimasak.'],
+ ['Ahli kelab menghasilkan poster','untuk menyedarkan warga sekolah','tentang pembaziran makanan.'],
+ ['Kesimpulannya, warga sekolah perlu bekerjasama','agar pembaziran makanan','dapat dikurangkan.']
+];
+function renderTiles(i){
+ const picks=s.tiles[i], order=[[2,0,1],[1,2,0],[1,0,2]][i%3];
+ $('build').hidden=s.a[i]<0;
+ $('tiles').replaceChildren();
+ order.forEach(n=>{
+   const b=document.createElement('button');
+   b.className='tile'+(picks.includes(n)?' used':'');b.textContent=parts[i][n];
+   b.disabled=picks.includes(n)||picks.length===3;
+   b.onclick=()=>{
+     
+     picks.push(n);
+     if(picks.join(',')==='0,1,2')s.w[i]=parts[i].join(' ');
+     persist();draw();
+   };$('tiles').append(b);
+ });
+ $('phrase').textContent=picks.map(n=>parts[i][n]).join(' ')||'Ayat pilihan akan muncul di sini.';
+ $('hint').textContent=s.w[i]?'🏮 Pelita menyala! Ayat masuk ke dalam rumusan.':picks.length===3?'Cuba lagi. Cari permulaan ayat dan lihat frasa yang sesuai selepasnya.':'';
+ $('undo').hidden=!picks.length||!!s.w[i];
+}
+
+const practice=new URLSearchParams(location.search).get('mod')==='latihan';
+const $=id=>document.getElementById(id), key=practice?'aksara_latihan_v1':'pulauAksara40_tiles_v2';
+if(practice){
+ $('practiceBanner').hidden=false;
+ $('student').value='Cikgu';$('group').value='Latihan';
+ $('ranking').hidden=true;
+}
+async function submitGame(game){
+ if(practice){
+   const xp=stations.reduce((sum,station,i)=>sum+(game.a[i]===station[4]?100:0),0);
+   return {xp,status:'Latihan'};
+ }
+ const response=await fetch('/api/misi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:game.ticket.id,name:game.name,group:game.group,a:game.a,tiles:game.tiles})});
+ if(!response.ok)throw Error('Sambungan terganggu.');return response.json();
+}
+let s,busy=false,attempt=0,again;
+function persist(){try{localStorage.setItem(key,JSON.stringify(s))}catch(e){$('notice').textContent='Storan pelayar tidak tersedia. Kekalkan tab ini terbuka.'}}
+function complete(i){return s.a[i]>=0 && !!s.w[i].trim()}
+function draw(){
+ const i=s.i,d=stations[i];$('map').replaceChildren();
+ stations.forEach((v,j)=>{let b=document.createElement('button');b.textContent=complete(j)?'✓':j+1;b.title=v[1];b.setAttribute('aria-label',v[1]);b.className=(j===i?'here ':'')+(complete(j)?'done':'');b.onclick=()=>go(j);$('map').append(b)});
+ $('progress').textContent=stations.filter((v,j)=>complete(j)).length+' / 8 pelita menyala';
+ $('island').textContent='Stesen '+(i+1)+' · '+d[0];$('stage').textContent=d[1];$('question').textContent=d[2];$('opts').replaceChildren();
+ d[3].forEach((v,n)=>{let b=document.createElement('button');b.textContent=String.fromCharCode(65+n)+'. '+v;b.className='opt'+(s.a[i]===n?' sel':'');b.disabled=s.a[i]>=0;b.onclick=()=>{s.a[i]=n;persist();draw()};$('opts').append(b)});
+ $('feedback').textContent=s.a[i]<0?'':(s.a[i]===d[4]?'✦ Tepat! +100 XP. ':'Jawapan tepat ialah '+String.fromCharCode(65+d[4])+'. ')+d[5];
+ renderTiles(i);$('back').disabled=i===0;$('next').textContent=i===7?'Semak dan hantar →':'Stesen seterusnya →';preview();
+}
+function preview(){$('preview').replaceChildren();s.w.forEach((v,i)=>{let p=document.createElement('p');p.textContent=v||'['+stations[i][1]+' belum dibina]';$('preview').append(p)})}
+function go(i){
+ s.i=i;persist();draw();
+ $('stage').focus({preventScroll:true});
+ $('activity').scrollIntoView({block:'start'});
+}
+$('undo').onclick=()=>{s.tiles[s.i]=[];persist();draw()};
+$('back').onclick=()=>go(s.i-1);$('next').onclick=()=>{if(s.i<7)return go(s.i+1);$('review').open=true;preview();const missing=stations.filter((_,i)=>!complete(i)).length;if(confirm((missing?missing+' stesen belum lengkap. ':'Semua pelita menyala! ')+'Hantar jawapan sekarang?'))freeze()};
+function show(){$('lobby').hidden=true;if(s.frozen){if(s.receipt)finish();else send();return}$('play').hidden=false;draw()}
+$('entry').onsubmit=async e=>{e.preventDefault();if(busy)return;const name=$('student').value.trim(),group=$('group').value.trim();if(!name||!group)return;busy=true;$('launch').disabled=true;$('notice').textContent='Membuka sesi…';try{const ticket={id:crypto.randomUUID()};s={name,group:group.toUpperCase(),ticket,i:0,a:Array(8).fill(-1),tiles:Array.from({length:8},()=>[]),w:Array(8).fill('')};$('notice').textContent='';persist();show()}catch(err){$('notice').textContent='Sesi belum dibuka. Cuba lagi. '+err.message}finally{busy=false;$('launch').disabled=false}};
+function freeze(){if(s.frozen)return;s.frozen=true;persist();send()}
+function finish(){if(!practice)refreshRank();$('endReview').hidden=false;$('endText').replaceChildren();s.w.forEach((w,i)=>{const p=document.createElement('p');p.textContent=w||'['+stations[i][1]+' belum dibina]';$('endText').append(p)});$('receipt').hidden=false;$('play').hidden=true;$('result').textContent='Jawapan berjaya direkodkan';$('msg').textContent=s.name+' · '+s.receipt.xp+' / 800 XP · '+s.receipt.status+'. Nama ekspedisi anda: '+s.receipt.alias+'. Kod penerimaan '+s.ticket.id.slice(0,8)+'.';if(practice){$('result').textContent='Latihan selesai';$('msg').textContent='Markah latihan: '+s.receipt.xp+' / 800 XP. Percubaan ini dikecualikan daripada ranking dan rekod kelas.'}
+ $('retry').hidden=true;$('reset').hidden=false}
+async function send(){if(busy)return;clearTimeout(again);busy=true;$('play').hidden=true;$('receipt').hidden=false;$('result').textContent='Menghantar log ekspedisi…';$('msg').textContent='Jawapan telah dikunci. Kekalkan tab ini terbuka sehingga kod penerimaan muncul.';$('retry').hidden=true;try{s.receipt=await submitGame(s);persist();finish()}catch(err){$('result').textContent='Menunggu pengesahan';$('msg').textContent='Sistem akan mencuba lagi. '+err.message;$('retry').hidden=false;again=setTimeout(send,Math.min(60000,3000*2**Math.min(5,attempt++))+Math.random()*9000)}finally{busy=false}}
+$('retry').onclick=send;$('reset').onclick=()=>{localStorage.removeItem(key);location.reload()};
+async function refreshRank(){
+ const button=$('refreshRank');if(button.disabled)return;button.disabled=true;
+ try{const response=await fetch('/api/misi',{cache:'no-store'});if(!response.ok)throw Error();
+ const rows=await response.json();$('ranks').replaceChildren();rows.forEach(row=>{const li=document.createElement('li'),xp=document.createElement('strong');li.textContent=row.alias;xp.textContent=row.xp+' XP';li.append(xp);$('ranks').append(li)});
+ $('rankMsg').textContent=rows.length?'':'Carta menanti penjelajah pertama yang melengkapkan kelapan-lapan stesen.'}
+ catch{$('rankMsg').textContent='Ranking belum dapat dimuatkan. Cuba lagi.'}finally{button.disabled=false}
+}
+$('refreshRank').onclick=refreshRank;if(!practice)refreshRank();
+const wideScreen=window.matchMedia('(min-width:900px)');
+$('source').open=wideScreen.matches;
+wideScreen.addEventListener('change',event=>{$('source').open=event.matches});
+try{s=JSON.parse(localStorage.getItem(key));if(s)show()}catch(e){$('notice').textContent='Draf terdahulu tidak dapat dibuka.'}
+</script></main></body></html>

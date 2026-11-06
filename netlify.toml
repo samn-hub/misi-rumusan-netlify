@@ -1,0 +1,11 @@
+[build]
+publish = "public"
+functions = "netlify/functions"
+[build.environment]
+NODE_VERSION = "22"
+[functions]
+node_bundler = "esbuild"
+[[redirects]]
+from = "/"
+to = "/pulau.html"
+status = 200

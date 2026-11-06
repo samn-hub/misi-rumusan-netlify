@@ -1,0 +1,30 @@
+<!doctype html><html lang="ms"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Rekod markah · Misi Rumusan</title><style>
+*{box-sizing:border-box}body{margin:0;background:#f5eedc;color:#183e45;font:17px/1.55 system-ui}main{max-width:1000px;margin:auto;padding:24px 16px}header{border-radius:18px;background:#163f48;color:#fff2c7;padding:24px}h1{margin:0;font-size:clamp(29px,6vw,50px)}header a{color:#ffe39b}section{margin:18px 0;background:#fffdf5;border:1px solid #c4d1c5;border-radius:16px;padding:20px}label{display:block;font-weight:bold}input,button{min-height:44px;font:inherit;border:1px solid #6c8982;border-radius:9px;padding:8px 12px;margin:4px 0}input{max-width:100%}button{background:#15534f;color:white;cursor:pointer}.scroll{overflow:auto}table{border-collapse:collapse;width:100%;font-size:15px}td,th{padding:10px 8px;text-align:left;border-bottom:1px solid #d3dbd0}th{white-space:nowrap}summary{cursor:pointer}p{margin:7px 0}#status{font-weight:650}
+</style><main><header><a href="/">← Pulau Aksara</a><h1>Rekod markah murid</h1><a href="/pulau.html?mod=latihan">Cuba kuiz tanpa masuk ranking →</a></header><section id="login"><form><label for="code">Kod akses guru</label><input type="password" id="code" required autocomplete="current-password"> <button>Buka rekod</button></form></section><p role="status" id="status"></p><section hidden id="panel"><label for="search">Cari nama atau kelas</label><input id="search" type="search"> <button id="refresh">Muat semula</button> <button id="logout">Keluar</button><p id="count"></p><div class="scroll"><table><thead><tr><th>Nama / jawapan</th><th>Kelas</th><th>Markah</th><th>Pelita</th><th>Waktu hantar</th></tr></thead><tbody id="records"></tbody></table></div></section></main><script>
+const $=id=>document.getElementById(id);let rows=[],secret='';
+function draw(){
+ const q=$('search').value.trim().toLowerCase(),filtered=rows.filter(r=>(r.name+' '+r.classroom).toLowerCase().includes(q));$('records').replaceChildren();
+ $('count').textContent=filtered.length+' penghantaran';
+ for(const r of filtered){
+ const tr=document.createElement('tr'),name=document.createElement('td'),details=document.createElement('details'),title=document.createElement('summary');
+ title.textContent=r.name;details.append(title);const data=JSON.parse(r.answers);
+ data.a.forEach((n,i)=>{const line=document.createElement('p');line.textContent=(i===0?'Pendahuluan':i===7?'Penutup':'Isi '+i)+' · '+(n<0?'Belum dijawab':String.fromCharCode(65+n))+' · '+(data.tiles[i].join(',')==='0,1,2'?'Pelita menyala':'Belum lengkap');details.append(line)});
+ const remove=document.createElement('button');remove.textContent='Padam keputusan ini';remove.onclick=async()=>{
+   if(!confirm('Padam keputusan '+r.name+' ('+r.classroom+'), '+r.xp+' XP, dihantar pada '+new Date(r.created).toLocaleString('ms-MY')+'?'))return;
+   remove.disabled=true;
+   try{
+     const res=await fetch('/api/misi',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+secret},body:JSON.stringify({mode:'padam',id:r.id})});
+     if(!res.ok)throw Error();rows=rows.filter(row=>row.id!==r.id);draw();$('status').textContent='Keputusan dipadam.';
+   }catch{$('status').textContent='Pemadaman belum disahkan. Muat semula rekod untuk menyemak.';remove.disabled=false}
+ };details.append(remove);
+ name.append(details);tr.append(name);
+ for(const value of [r.classroom,r.xp+' / 800',r.lamps+' / 8',new Date(r.created).toLocaleString('ms-MY',{timeZone:'Asia/Kuala_Lumpur'})]){const td=document.createElement('td');td.textContent=value;tr.append(td)}
+ $('records').append(tr)}
+}
+async function load(){
+ const active=secret||$('code').value.trim();$('status').textContent='Memuatkan rekod…';
+ try{const res=await fetch('/api/misi',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+active},body:JSON.stringify({mode:'guru'})});if(!res.ok)throw Error(res.status===403?'Kod akses tidak tepat.':'Rekod belum dapat dimuatkan. Cuba lagi.');
+ rows=await res.json();secret=active;$('code').value='';$('login').hidden=true;$('panel').hidden=false;$('status').textContent='';draw()}catch(e){$('status').textContent=e.message}
+}
+document.querySelector('form').onsubmit=e=>{e.preventDefault();load()};$('refresh').onclick=load;$('search').oninput=draw;$('logout').onclick=()=>location.reload();
+</script></html>
